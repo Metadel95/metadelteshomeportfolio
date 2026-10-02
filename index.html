@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f2;--fg:#111;--mut:#777;--line:#d9d9d5;--card:#e9e9e6;--pad:clamp(20px,4vw,56px)}
+@media(prefers-color-scheme:dark){:root{--bg:#111;--fg:#f2f2f0;--mut:#8a8a86;--line:#2c2c2a;--card:#1d1d1b}}
+*{box-sizing:border-box;margin:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+nav{position:fixed;inset:0 0 auto;display:flex;justify-content:space-between;padding:20px var(--pad);z-index:5;mix-blend-mode:difference;color:#fff;font-weight:500}
+nav div{display:flex;gap:28px}
+section{padding:clamp(64px,10vw,120px) var(--pad);border-top:1px solid var(--line)}
+h2{font-size:clamp(32px,5vw,56px);font-weight:500;letter-spacing:-.03em;margin-bottom:40px}
+.hero{min-height:100vh;border:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);align-items:end;padding-top:90px}
+.hero img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--card);max-height:80vh}
+.hero h1{font-size:clamp(48px,9vw,120px);line-height:.95;font-weight:500;letter-spacing:-.05em}
+.hero .role{font-size:22px;margin:16px 0 28px}.hero p{max-width:440px;color:var(--mut)}
+.btn{display:inline-block;margin-top:28px;padding:14px 26px;border-radius:99px;background:var(--fg);color:var(--bg);font-weight:500}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2ecc71;margin-right:8px}
+.logos{display:flex;flex-wrap:wrap;gap:48px;align-items:center;justify-content:center;padding:32px var(--pad);border-top:1px solid var(--line)}
+.logos img{height:32px;opacity:.6}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad)}.about p{font-size:clamp(20px,2.4vw,30px);line-height:1.3;letter-spacing:-.02em}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:32px}.stats b{display:block;font-size:clamp(40px,5vw,64px);font-weight:500;letter-spacing:-.04em}.stats span{color:var(--mut)}
+.row{display:grid;grid-template-columns:1fr 2fr;gap:var(--pad);padding:28px 0;border-top:1px solid var(--line)}
+.row h3{font-size:22px;font-weight:500}.row ul{list-style:none;padding:0;color:var(--mut);columns:2}
+.row small{color:var(--mut)}.row .m{color:var(--mut)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.grid3 div{padding:24px;background:var(--card);border-radius:16px}
+.tst{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.tst figure{padding:28px;background:var(--card);border-radius:20px}.tst img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:var(--line);margin-bottom:16px}
+.tst blockquote{margin:16px 0}
+.work{display:grid;grid-template-columns:1fr 1fr;gap:28px 24px}
+.card{cursor:pointer;background:none;border:0;text-align:left;color:inherit;font:inherit}
+.card .im{aspect-ratio:4/5;overflow:hidden;border-radius:12px;background:var(--card)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .6s}.card:hover img{transform:scale(1.04)}
+.card h3{font-size:22px;font-weight:500;margin-top:14px}.card span{color:var(--mut)}
+dialog{border:0;background:var(--bg);color:var(--fg);width:min(960px,94vw);max-height:92vh;padding:var(--pad);border-radius:20px}
+dialog::backdrop{background:rgba(0,0,0,.6)}dialog img{width:100%;margin:20px 0;border-radius:10px}
+dialog button{float:right;background:none;border:1px solid var(--line);color:inherit;border-radius:99px;padding:8px 18px;cursor:pointer}
+footer h2{font-size:clamp(48px,10vw,140px);line-height:.95}footer p{font-size:22px;margin-bottom:24px}
+.links{display:flex;gap:24px;flex-wrap:wrap;margin:24px 0 64px;color:var(--mut)}
+.fab{position:fixed;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:5;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+@media(max-width:760px){.hero,.about,.row,.work,.grid3{grid-template-columns:1fr}.row ul{columns:1}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style></head>
+<body>
+<nav><a href="#top">Home</a><div><a href="#about">About</a><a href="#work">Work</a></div></nav>
+<main id="app"></main>
+<a class="btn fab" href="#contact">Start a Project</a>
+<dialog id="dlg"></dialog>
+<script>
+// ============ EDIT ONLY THIS FILE (plus drop images in /images) ============
+window.SITE = {
+  name: "Your Name",
+  role: "Digital Designer",
+  intro: "I design digital experiences, from websites to visual identities, focused on clarity and strong visual storytelling.",
+  status: "Available for work.",
+  portrait: "images/profile.jpg",          // your photo (portrait, 3:4 works best)
+  logos: [],                                 // e.g. ["images/logos/acme.svg"]
+  about: "I'm Your Name, a designer based in City with X years of experience crafting thoughtful digital experiences.",
+  stats: [["11+","Years of experience"],["60+","Clients worldwide"],["100+","Projects delivered"],["97%","Client satisfaction"]],
+  services: [
+    ["Web Design", ["Custom websites","Landing pages","UI/UX design","Redesigns"]],
+    ["Branding", ["Logo design","Visual identity","Brand guidelines","Typography & color"]],
+    ["Graphic Design", ["Marketing materials","Social graphics","Presentations","Print design"]],
+  ],
+  stack: [["Figma","General design tool"],["Photoshop","Image editing"],["Illustrator","Graphic design"]],
+  experience: [
+    ["Senior Digital Designer","Freelance","2019 - Present","Working with startups and brands on digital experiences."],
+    ["Digital Designer","Creative Studio","2015 - 2019","Designed websites and brand visuals with developers and creatives."],
+  ],
+  awards: [["Site of the Day","Awwwards","2025","https://www.awwwards.com/"]],
+  testimonials: [
+    { name:"Emily T", role:"Product Manager", photo:"images/t1.jpg", quote:"Brings creativity, clarity, and professionalism to every project." },
+  ],
+  contact: { heading:"Reach out.", text:"Let's work together to bring your ideas to life.", email:"hello@example.com", phone:"",
+    socials:[["Twitter/X","https://x.com"],["LinkedIn","https://linkedin.com"],["Instagram","https://instagram.com"]] },
+
+  // ---- PROJECTS: add a block per project. Put images in images/projects/<folder>/ ----
+  projects: [
+    { title:"Pulse", category:"Graphic Design", cover:"images/projects/pulse/cover.jpg",
+      description:"Short description of the project.",
+      images:["images/projects/pulse/1.jpg","images/projects/pulse/2.jpg"] },
+    { title:"Nova", category:"Branding", cover:"images/projects/nova/cover.jpg",
+      description:"Short description of the project.",
+      images:["images/projects/nova/1.jpg"] },
+  ],
+};
+</script>
+<script>
+const S=window.SITE;if(!S){document.body.textContent="Content missing.";throw 0}
+const $=s=>document.querySelector(s);
+const e=t=>String(t??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const img=(src,alt="")=>`<img src="${e(src)}" alt="${e(alt)}" loading="lazy" onerror="this.style.visibility='hidden'">`;
+document.title=`${S.name} · ${S.role}`;
+$("#app").innerHTML=`
+<section class="hero" id="top">
+ <div><h1>${e(S.name)}</h1><p class="role">${e(S.role)}</p><p>${e(S.intro)}</p>
+ <p style="margin-top:20px;color:var(--fg)"><i class="dot"></i>${e(S.status)}</p><a class="btn" href="#contact">Get in touch</a></div>
+ ${img(S.portrait,S.name)}</section>
+${S.logos.length?`<div class="logos">${S.logos.map(l=>img(l)).join("")}</div>`:""}
+<section id="about"><h2>About me.</h2><div class="about"><p>${e(S.about)}</p>
+ <div class="stats">${S.stats.map(([n,l])=>`<div><b>${e(n)}</b><span>${e(l)}</span></div>`).join("")}</div></div></section>
+<section><h2>Services.</h2>${S.services.map(([t,l],i)=>`<div class="row"><h3>${i+1}. ${e(t)}</h3><ul>${l.map(x=>`<li>${e(x)}</li>`).join("")}</ul></div>`).join("")}</section>
+<section><h2>Stack.</h2><div class="grid3">${S.stack.map(([t,d])=>`<div><h3>${e(t)}</h3><span class="m">${e(d)}</span></div>`).join("")}</div></section>
+<section><h2>Experience.</h2>${S.experience.map(([t,c,y,d])=>`<div class="row"><div><h3>${e(t)}</h3><small>${e(c)} · ${e(y)}</small></div><p class="m">${e(d)}</p></div>`).join("")}</section>
+<section><h2>Awards.</h2>${S.awards.map(([t,o,y,u])=>`<a class="row" href="${e(u)}" target="_blank" rel="noopener"><h3>${e(t)}</h3><p class="m">${e(o)} · ${e(y)}</p></a>`).join("")}</section>
+<section><h2>Testimonials.</h2><div class="tst">${S.testimonials.map(t=>`<figure>${img(t.photo,t.name)}<b>${e(t.name)}</b><br><small>${e(t.role)}</small><blockquote>“${e(t.quote)}”</blockquote></figure>`).join("")}</div></section>
+<section id="work"><h2>Work.</h2><div class="work">${S.projects.map((p,i)=>`<button class="card" data-i="${i}"><div class="im">${img(p.cover,p.title)}</div><h3>${e(p.title)}</h3><span>${e(p.category)}</span></button>`).join("")}</div></section>
+<footer><section id="contact"><h2>${e(S.contact.heading)}</h2><p>${e(S.contact.text)}</p>
+ <p><a href="mailto:${e(S.contact.email)}">${e(S.contact.email)}</a>${S.contact.phone?` · <a href="tel:${e(S.contact.phone)}">${e(S.contact.phone)}</a>`:""}</p>
+ <div class="links">${S.contact.socials.map(([n,u])=>`<a href="${e(u)}" target="_blank" rel="noopener">${e(n)}</a>`).join("")}</div>
+ <small style="color:var(--mut)">© ${new Date().getFullYear()} ${e(S.name)}. All rights reserved.</small></section></footer>`;
+const dlg=$("#dlg");
+document.addEventListener("click",ev=>{
+ const c=ev.target.closest(".card");
+ if(c){const p=S.projects[c.dataset.i];
+  dlg.innerHTML=`<button onclick="dlg.close()">Close</button><h2 style="margin:0">${e(p.title)}</h2><span style="color:var(--mut)">${e(p.category)}</span><p style="margin-top:12px">${e(p.description)}</p>${p.images.map(i=>img(i,p.title)).join("")}`;
+  dlg.showModal();}
+ else if(ev.target===dlg)dlg.close();
+});
+</script></body></html>
